@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dino Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        #game-container {
+            margin: 0 auto;
+            width: 600px;
+            height: 400px;
+            background-color: #fff;
+            border: 1px solid #000;
+            position: relative;
+        }
+        #dino {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: #000;
+            border-radius: 50%;
+        }
+        #cactus {
+            position: absolute;
+            bottom: 0;
+            left: 100%;
+            width: 50px;
+            height: 50px;
+            background-color: #000;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dino Game</h1>
+    <div id="game-container">
+        <div id="dino"></div>
+        <div id="cactus"></div>
+    </div>
+    <script>
+        // Get the game container and elements
+        const gameContainer = document.getElementById('game-container');
+        const dino = document.getElementById('dino');
+        const cactus = document.getElementById('cactus');
+
+        // Set the initial positions
+        let dinoPosition = 0;
+        let cactusPosition = 600;
+
+        // Function to move the cactus
+        function moveCactus() {
+            cactusPosition -= 5;
+            cactus.style.left = cactusPosition + 'px';
+            if (cactusPosition < -50) {
+                cactusPosition = 600;
+            }
+        }
+
+        // Function to move the dino
+        function moveDino() {
+            if (dinoPosition < 50) {
+                dinoPosition += 5;
+                dino.style.bottom = dinoPosition + 'px';
+            }
+        }
+
+        // Function to check for collisions
+        function checkCollision() {
+            if (dinoPosition >= 50 && cactusPosition <= 50) {
+                clearInterval(gameInterval);
+                alert('Game Over!');
+            }
+        }
+
+        // Set the game interval
+        const gameInterval = setInterval(() => {
+            moveCactus();
+            moveDino();
+            checkCollision();
+        }, 100);
+    </script>
+</body>
+</html>
